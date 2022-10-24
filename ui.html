@@ -3,13 +3,13 @@
 <button id="closeButton">Close</button>
 
 <script>
-  document.getElementById('goButton').addEventListener('click', () => {
-    parent.postMessage({ pluginMessage: 'GO' }, '*')
-    return
-  })
+  document.getElementById("goButton").addEventListener("click", () => {
+    parent.postMessage({ pluginMessage: "GO" }, "*");
+    return;
+  });
 
-  document.getElementById('closeButton').addEventListener('click', () => {
-    parent.postMessage({ pluginMessage: 'Close' }, '*')
-    return
-  })
+  document.getElementById("closeButton").addEventListener("click", () => {
+    parent.postMessage({ pluginMessage: "Close" }, "*");
+    return;
+  });
 </script>
