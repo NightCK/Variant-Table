@@ -18,13 +18,12 @@ figma.ui.onmessage = (message) => {
 	}
 }
 
-async function listAllVariant() {
+function listAllVariant() {
 	const currentSelection = figma.currentPage.selection[0]
 	const containerPostionX = currentSelection.x
 	const containerPostionY = currentSelection.y
 	let variantList: object = {}
 	let booleanList: string[] = []
-	await figma.loadFontAsync({ family: 'Roboto', style: 'Bold' })
 
 	switch (currentSelection.type) {
 		case 'COMPONENT_SET':
@@ -90,12 +89,13 @@ async function listAllVariant() {
 	return
 }
 
-function createVariantInstance(
+async function createVariantInstance(
 	variant: string,
 	option: string,
 	booleanList: string[],
 	selectedNode: ComponentSetNode
 ) {
+	// await figma.loadFontAsync({ family: 'Roboto', style: 'Bold' })
 	// Initial the property, put the variant and option inside
 	let initialProperty: object = {}
 	initialProperty = {
@@ -110,7 +110,6 @@ function createVariantInstance(
 	// If there are booleans, put each boolean into property and set to true, finally create the instance
 	if (booleanList.length > 0) {
 		booleanList.forEach((element) => {
-			console.log('here')
 			initialProperty = {
 				...initialProperty,
 				[element]: true,
@@ -201,6 +200,12 @@ function createVariantInstance(
 	}
 	containerSelection.push(variantContainer)
 	nodeSelection = []
+
+	// Create label for variant and option
+	// const variantLabel = figma.createText()
+	// variantLabel.characters = `${variant}: ${option}`
+	// variantLabel.fontSize = 16
+	// variantContainer.insertChild(0, variantLabel)
 	return
 }
 
