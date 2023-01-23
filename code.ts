@@ -1,29 +1,22 @@
+if (figma.currentPage.selection.length === 0) {
+	figma.closePlugin('Select 1 component set first.')
+} else if (figma.currentPage.selection.length > 1) {
+	figma.closePlugin('Please choose just 1 component set.') // 目前只支援選擇一個 component
+} else {
+	listAllVariant()
+}
+
 let nodeSelection: InstanceNode[] = []
 let containerSelection: FrameNode[] = []
 let resultSelection: FrameNode[] = []
 
-figma.showUI(__html__)
-
-figma.ui.onmessage = (message) => {
-	if (message === 'GO') {
-		if (figma.currentPage.selection.length === 0) {
-			figma.closePlugin('Select 1 component first.')
-			return
-		}
-		if (figma.currentPage.selection.length > 1) {
-			figma.closePlugin('Please choose just 1 component for now') // 目前只支援選擇一個 component
-			return
-		}
-		listAllVariant()
-	}
-}
-
-function listAllVariant() {
+async function listAllVariant() {
 	const currentSelection = figma.currentPage.selection[0]
 	const containerPostionX = currentSelection.x
 	const containerPostionY = currentSelection.y
 	let variantList: object = {}
 	let booleanList: string[] = []
+	await figma.loadFontAsync({ family: 'Inter', style: 'Bold' })
 
 	switch (currentSelection.type) {
 		case 'COMPONENT_SET':
@@ -44,7 +37,12 @@ function listAllVariant() {
 
 			for (const [variant, optionList] of Object.entries(variantList)) {
 				optionList.forEach((option: string) => {
-					createVariantInstance(variant, option, booleanList, currentSelection)
+					createVariantInstance(
+						variant,
+						option,
+						booleanList,
+						currentSelection
+					)
 				})
 			}
 
@@ -89,13 +87,12 @@ function listAllVariant() {
 	return
 }
 
-async function createVariantInstance(
+function createVariantInstance(
 	variant: string,
 	option: string,
 	booleanList: string[],
 	selectedNode: ComponentSetNode
 ) {
-	// await figma.loadFontAsync({ family: 'Roboto', style: 'Bold' })
 	// Initial the property, put the variant and option inside
 	let initialProperty: object = {}
 	initialProperty = {
@@ -143,7 +140,7 @@ async function createVariantInstance(
 					}
 				}
 				// If booleanList.length equal 2, meaning the above for...loop will generate duplicate result with 'index === 0',
-				// So I write a condional to solve this.
+				// So I write a conditional to solve this.
 				if (booleanList.length == 2) {
 					setProperty = {
 						...setProperty,
@@ -202,10 +199,11 @@ async function createVariantInstance(
 	nodeSelection = []
 
 	// Create label for variant and option
-	// const variantLabel = figma.createText()
-	// variantLabel.characters = `${variant}: ${option}`
-	// variantLabel.fontSize = 16
-	// variantContainer.insertChild(0, variantLabel)
+	const variantLabel = figma.createText()
+	variantLabel.fontName = { family: 'Inter', style: 'Bold' }
+	variantLabel.characters = `${variant}: ${option}`
+	variantLabel.fontSize = 16
+	variantContainer.insertChild(0, variantLabel)
 	return
 }
 

@@ -1,5 +1,5 @@
 {
-	"name": "listallvariant",
+	"name": "varianttable",
 	"version": "alpha v0.1",
 	"description": "List every possible combination of the selected component set.",
 	"main": "code.js",

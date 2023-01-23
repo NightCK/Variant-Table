@@ -1,5 +1,5 @@
-# Node
-*.log
-*.log.*
+# testing
+.DS_Store
+.prettierrc.json
 node_modules
 code.js
