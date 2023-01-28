@@ -1,10 +1,10 @@
 {
 	"name": "varianttable",
-	"version": "alpha v0.1",
+	"version": "alpha v0.2",
 	"description": "List every possible combination of the selected component set.",
-	"main": "code.js",
+	"main": "./dist/code.js",
 	"scripts": {
-		"build": "tsc -p tsconfig.json",
+		"build": "webpack --mode=production",
 		"watch": "npm run build -- --watch"
 	},
 	"author": "JasonCK",
@@ -13,6 +13,9 @@
 		"@figma/plugin-typings": "^1.52.0",
 		"jest": "^29.2.1",
 		"prettier": "2.7.1",
-		"typescript": "*"
+		"ts-loader": "^9.4.2",
+		"typescript": "*",
+		"webpack": "^5.75.0",
+		"webpack-cli": "^5.0.1"
 	}
 }
