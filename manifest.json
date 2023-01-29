@@ -1,0 +1,7 @@
+{
+	"name": "Variant Table",
+	"id": "1158790561162675152",
+	"api": "1.0.0",
+	"main": "./dist/code.js",
+	"editorType": ["figma"]
+}
