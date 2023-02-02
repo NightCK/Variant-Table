@@ -5,8 +5,8 @@ module.exports = (argv) => ({
 	mode: argv.mode === 'production' ? 'production' : 'development',
 
 	// This is necessary because Figma's 'eval' works differently than normal eval
-	// 拿掉後似乎也沒有遇到錯誤，開啟後出現的 sourcemap 還蠻佔空間的，再觀察看看
-	// devtool: argv.mode === 'production' ? false : 'inline-source-map',
+	// 開啟 devtool 會在 console.log 提供精確的錯誤發生位置
+	devtool: argv.mode === 'production' ? false : 'inline-source-map',
 
 	entry: {
 		code: './src/create-instance.js',
